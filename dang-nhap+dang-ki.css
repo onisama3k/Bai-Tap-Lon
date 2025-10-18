@@ -1,0 +1,111 @@
+body {
+    background-color: #f6cf00;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    
+}
+h1 {
+    text-align: center;
+    margin: 30px 0 20px 0;
+    color: #000;
+}
+
+header nav {
+    background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 104px;
+}
+
+header nav a {
+    flex: 1;
+}
+
+header nav a img {
+    width: auto;
+    height: 90px;
+    padding-left: 30px;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: calc(100vh - 104px);
+}
+.login-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 450px;
+    margin-bottom: 15px;
+}
+.login-box label {
+    width: 150px;
+    font-weight: bold;
+    text-align: left;
+    margin-right: 10px;
+    line-height: 40px;
+}
+input[type=text], input[type=username], input[type=password], input[type=phonenumber], input[type=re-password] {
+    width: 350px;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+input[type=text]:focus, input[type=username]:focus, input[type=password]:focus, input[type=phonenumber]:focus, input[type=re-password]:focus {
+    border : 2px solid blue;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.login-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f6cf00;
+    color: black;
+    cursor: pointer;
+    margin-top: 10px;   
+}
+.login-button:hover {
+    background-color: blue;
+}
+.button-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+.note {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 5px;
+}
+.note-register {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px;
+    margin-top: 10px;
+}
+.note-register .login-button {
+    background-color: #f6cf00;
+    color: black;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+.note-register .login-button:hover {
+    background-color: #0044cc;
+}
