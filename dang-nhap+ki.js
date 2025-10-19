@@ -1,5 +1,5 @@
 //hàm kiểm tra cho form đăng ký
-function validateRegisterForm(event) {
+async function validateRegisterForm(event) {
     //1. Ngăn chặn hành vi gửi mặc định của form
     //Hành động này sẽ giúp js có thời gian kiểm tra dữ liệu trước khi trang bị tải lại
     event.preventDefault();
@@ -7,6 +7,7 @@ function validateRegisterForm(event) {
     const username = document.getElementById("RegisterUsername").value.trim();
     const password = document.getElementById("RegisterPassword").value.trim();
     const repassword = document.getElementById("RegisterRePassword").value.trim();
+    const email = document.getElementById("RegisterEmail").value.trim();
     const phonenumber = document.getElementById("RegisterPhoneNumber").value.trim();
     const address = document.getElementById("RegisterAddress").value.trim();
     const errorDisplay = document.getElementById("RegisterErrorMessages");
@@ -14,7 +15,7 @@ function validateRegisterForm(event) {
     errorDisplay.innerHTML = '';
     let errors = [];
     // kiểm tra username
-    if(username === "" || password === "" || repassword === "" || phonenumber === "" || address === ""){
+    if(username === "" || password === "" || repassword === "" || phonenumber === "" || address === "" || email === ""){
         errors.push("Vui lòng điền đầy đủ thông tin.");
     }
     if( username.length < 6 || username.length > 15 || !/^[a-zA-Z0-9]+$/.test(username)){
@@ -27,6 +28,9 @@ function validateRegisterForm(event) {
     // kiếm tra repassword
     if(password !== repassword){
         errors.push("Mật khẩu không khớp.");
+    }
+    if(!/^[^\s@+@[^\s@]+\.[^\s@]+$/.test(email)){
+        errors.push("Email không hợp lệ.");
     }
     // kiểm tra số điện thoại
     if(!/^(0[0-9]{9}$)/.test(phonenumber)){
@@ -43,11 +47,25 @@ function validateRegisterForm(event) {
     });
     box.style.display = "flex"; //  bật hiển thị lại hộp
     return false;
-}
+    }
 else {
     document.getElementById("errorBox").style.display = "none";
-    alert("Đăng ký thành công!");
-    window.location.href = "dang-nhap.html";
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+            username: username,
+            email: email,
+            phone: phonenumber,
+            address: address,
+            createdAt: new Date()
+        });
+
+        alert("Đăng ký thành công!");
+        window.location.href = "dang-nhap.html";
+    } catch (error) {
+        showError(error.message);
+    }
 }
 }
 //Hàm kiểm tra cho form đăng nhập
@@ -55,11 +73,12 @@ function validateLoginForm(event) {
     event.preventDefault();
     const username = document.getElementById("LoginUsername").value.trim();
     const password = document.getElementById("LoginPassword").value.trim();
+    const email = document.getElementById("RegisterEmail").value.trim();
     const errorDisplay = document.getElementById("LoginErrorMessages");
     
     let errors = [];
     errorDisplay.innerHTML = '';
-    if(username === "" || password === ""){
+    if(username === "" || password === "" || email === ""){
         errors.push("Vui lòng điền đầy đủ tên đăng nhâp và mật khẩu.");
     }
     if(errors.length > 0){
@@ -86,3 +105,6 @@ function showError(message) {
 function closeErrorBox() {
   document.getElementById("errorBox").style.display = "none";
 }
+import { auth, db } from "./firebase-config.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore.js";
