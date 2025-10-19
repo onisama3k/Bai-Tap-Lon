@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+import { auth, db } from "./firebase-config.js";
 //hàm kiểm tra cho form đăng ký
 async function validateRegisterForm(event) {
     //1. Ngăn chặn hành vi gửi mặc định của form
@@ -32,7 +33,7 @@ async function validateRegisterForm(event) {
     if(password !== repassword){
         errors.push("Mật khẩu không khớp.");
     }
-    if(!/^[^\s@+@[^\s@]+\.[^\s@]+$/.test(email)){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
         errors.push("Email không hợp lệ.");
     }
     // kiểm tra số điện thoại
@@ -76,7 +77,7 @@ function validateLoginForm(event) {
     event.preventDefault();
     const username = document.getElementById("LoginUsername").value.trim();
     const password = document.getElementById("LoginPassword").value.trim();
-    const email = document.getElementById("RegisterEmail").value.trim();
+    const email = document.getElementById("LoginEmail").value.trim();
     const errorDisplay = document.getElementById("LoginErrorMessages");
     
     let errors = [];
@@ -92,7 +93,6 @@ function validateLoginForm(event) {
     });
     box.style.display = "flex"; //  bật hiển thị lại hộp
     return false;
-        return false;
     } else {
         alert("Đăng nhập thành công!");
         return false;
