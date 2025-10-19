@@ -1,3 +1,6 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 //hàm kiểm tra cho form đăng ký
 async function validateRegisterForm(event) {
     //1. Ngăn chặn hành vi gửi mặc định của form
@@ -105,6 +108,3 @@ function showError(message) {
 function closeErrorBox() {
   document.getElementById("errorBox").style.display = "none";
 }
-import { auth, db } from "./firebase-config.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore.js";
