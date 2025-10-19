@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="dang-nhap+dang-ki.css">
     <title>đăng nhâp</title>
 </head>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet">
 <body>
     <header>
         <nav>
@@ -33,7 +34,10 @@
                 <button type="submit" class="login-button">Đăng Kí</button>
               </a>
           </div>
-        <div id="LoginErrorMessages" style="color: red; margin-top: 10px;">
+        <div class="error-box" id="errorBox">
+             <span class="close-btn" onclick="closeErrorBox()">&times;</span>
+             <div id="LoginErrorMessages" style="color: red; margin-top: 10px;"></div>
+             </div>
         </div>
         <script src ="dang-nhap+ki.js"></script>
     </main>

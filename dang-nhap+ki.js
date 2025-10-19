@@ -8,12 +8,13 @@ function validateRegisterForm(event) {
     const password = document.getElementById("RegisterPassword").value.trim();
     const repassword = document.getElementById("RegisterRePassword").value.trim();
     const phonenumber = document.getElementById("RegisterPhoneNumber").value.trim();
+    const address = document.getElementById("RegisterAddress").value.trim();
     const errorDisplay = document.getElementById("RegisterErrorMessages");
     // reset thông báo lỗi trước khi kiểm tra
     errorDisplay.innerHTML = '';
     let errors = [];
     // kiểm tra username
-    if(username === "" || password === "" || repassword === "" || phonenumber === ""){
+    if(username === "" || password === "" || repassword === "" || phonenumber === "" || address === ""){
         errors.push("Vui lòng điền đầy đủ thông tin.");
     }
     if( username.length < 6 || username.length > 15 || !/^[a-zA-Z0-9]+$/.test(username)){
@@ -31,16 +32,23 @@ function validateRegisterForm(event) {
     if(!/^(0[0-9]{9}$)/.test(phonenumber)){
         errors.push("Số điện thoại không hợp lệ.");
     }
+    if(address.length < 10){
+        errors.push("Vui lòng nhập địa chỉ đầy đủ.");
+    }
     if (errors.length > 0) {
-        errors.forEach(err => {
-           errorDisplay.innerHTML += '<p>' + err + '</p>';
-        });
-        return false;
-    }
-    else {
-        alert("Đăng ký thành công!");
-        window.location.href = "dang-nhap.html";
-    }
+    const box = document.getElementById("errorBox");
+    errorDisplay.innerHTML = ''; // reset
+    errors.forEach(err => {
+       errorDisplay.innerHTML += '<p>' + err + '</p>';
+    });
+    box.style.display = "flex"; //  bật hiển thị lại hộp
+    return false;
+}
+else {
+    document.getElementById("errorBox").style.display = "none";
+    alert("Đăng ký thành công!");
+    window.location.href = "dang-nhap.html";
+}
 }
 //Hàm kiểm tra cho form đăng nhập
 function validateLoginForm(event) {
@@ -55,13 +63,26 @@ function validateLoginForm(event) {
         errors.push("Vui lòng điền đầy đủ tên đăng nhâp và mật khẩu.");
     }
     if(errors.length > 0){
-        errors.forEach(err => {
-           errorDisplay.innerHTML += '<p>' + err + '</p>';
+       const box = document.getElementById("errorBox");
+    errorDisplay.innerHTML = ''; // reset
+    errors.forEach(err => {
+       errorDisplay.innerHTML += '<p>' + err + '</p>';
     });
+    box.style.display = "flex"; //  bật hiển thị lại hộp
+    return false;
         return false;
     } else {
         alert("Đăng nhập thành công!");
         return false;
     }
-
+}
+function showError(message) {
+  const box = document.getElementById("errorBox");
+  const msg = document.getElementById("errorMessage");
+  
+  msg.textContent = "❗ " + message;  // đổi nội dung lỗi
+  box.style.display = "flex";         // hiển thị lại hộp lỗi
+}
+function closeErrorBox() {
+  document.getElementById("errorBox").style.display = "none";
 }
