@@ -102,13 +102,26 @@ async function validateLoginForm(event) {
 function showErrorRegister(message) {
   const box = document.getElementById("errorBox");
   const msg = document.getElementById("RegisterErrorMessages");
-  
+  if (box && msg) {
+        msg.innerHTML = "❗ " + message;
+        box.style.display = "flex";
+    } else {
+        console.error("LỖI JS: Không tìm thấy errorBox hoặc RegisterErrorMessages trên trang Đăng ký.");
+        // alert("Đã xảy ra lỗi: " + message); // Giữ lại alert dự phòng cho trường hợp không tìm thấy phần tử
+    }
   msg.textContent = "❗ " + message;  // đổi nội dung lỗi
   box.style.display = "flex";         // hiển thị lại hộp lỗi
 }
 function showErrorLogin(message) {
   const box = document.getElementById("errorBox");
   const msg = document.getElementById("LoginErrorMessages");
+  if (box && msg) {
+        msg.innerHTML = "❗ " + message;
+        box.style.display = "flex";
+    } else {
+        console.error("LỖI JS: Không tìm thấy errorBox hoặc LoginErrorMessages trên trang Đăng nhập.");
+        // alert("Đã xảy ra lỗi: " + message);
+    }
   msg.innerHTML = "❗ " + message;
   box.style.display = "flex";
 }
