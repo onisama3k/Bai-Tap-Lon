@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, sigiInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
 //hàm kiểm tra cho form đăng ký
@@ -89,7 +89,7 @@ async function validateLoginForm(event) {
     } else {
         document.getElementById("errorBox").style.display = "none";
     try {
-        const userCredential = await sigiInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         alert("Đăng nhập thành công!");
         window.location.href = "trang-chu.html";
         } catch (error){
