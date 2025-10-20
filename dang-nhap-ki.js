@@ -70,6 +70,7 @@ else {
         showErrorRegister(error.message);
     }
     }
+    return false;
 }
 //Hàm kiểm tra cho form đăng nhập
 async function validateLoginForm(event) {
@@ -96,6 +97,7 @@ async function validateLoginForm(event) {
             showErrorLogin(error.message);
         }
     }
+    return false;
 }
 function showErrorRegister(message) {
   const box = document.getElementById("errorBox");
