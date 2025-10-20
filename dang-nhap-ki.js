@@ -67,14 +67,13 @@ else {
         alert("Đăng ký thành công!");
         window.location.href = "dang-nhap.html";
     } catch (error) {
-        showError(error.message);
+        showErrorRegister(error.message);
     }
-}
+    }
 }
 //Hàm kiểm tra cho form đăng nhập
 function validateLoginForm(event) {
     event.preventDefault();
-    const username = document.getElementById("LoginUsername").value.trim();
     const password = document.getElementById("LoginPassword").value.trim();
     const email = document.getElementById("LoginEmail").value.trim();
     const errorDisplay = document.getElementById("LoginErrorMessages");
@@ -85,19 +84,14 @@ function validateLoginForm(event) {
         errors.push("Vui lòng điền đầy đủ email và mật khẩu.");
     }
     if(errors.length > 0){
-       const box = document.getElementById("errorBox");
-    errorDisplay.innerHTML = ''; // reset
-    errors.forEach(err => {
-       errorDisplay.innerHTML += '<p>' + err + '</p>';
-    });
-    box.style.display = "flex"; //  bật hiển thị lại hộp
-    return false;
+      showErrorLogin(error.join('<br>'));
+      return false;
     } else {
         alert("Đăng nhập thành công!");
         return false;
     }
 }
-function showError(message) {
+function showErrorRegister(message) {
   const box = document.getElementById("errorBox");
   const msg = document.getElementById("RegisterErrorMessages");
   
@@ -110,6 +104,5 @@ function showErrorLogin(message) {
   msg.innerHTML = "❗ " + message;
   box.style.display = "flex";
 }
-function closeErrorBox() {
-  document.getElementById("errorBox").style.display = "none";
-}
+//function closeErrorBox() {
+//  document.getElementById("errorBox").style.display = "none";}
