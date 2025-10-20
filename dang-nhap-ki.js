@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sigiInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
 //hàm kiểm tra cho form đăng ký
@@ -72,7 +72,7 @@ else {
     }
 }
 //Hàm kiểm tra cho form đăng nhập
-function validateLoginForm(event) {
+async function validateLoginForm(event) {
     event.preventDefault();
     const password = document.getElementById("LoginPassword").value.trim();
     const email = document.getElementById("LoginEmail").value.trim();
@@ -84,11 +84,17 @@ function validateLoginForm(event) {
         errors.push("Vui lòng điền đầy đủ email và mật khẩu.");
     }
     if(errors.length > 0){
-      showErrorLogin(error.join('<br>'));
+      showErrorLogin(errors.join('<br>'));
       return false;
     } else {
+        document.getElementById("errorBox").style.display = "none";
+    try {
+        const userCredential = await sigiInWithEmailAndPassword(auth, email, password);
         alert("Đăng nhập thành công!");
-        return false;
+        window.location.href = "trang-chu.html";
+        } catch (error){
+            showErrorLogin(error.message);
+        }
     }
 }
 function showErrorRegister(message) {
@@ -104,5 +110,6 @@ function showErrorLogin(message) {
   msg.innerHTML = "❗ " + message;
   box.style.display = "flex";
 }
-//function closeErrorBox() {
-//  document.getElementById("errorBox").style.display = "none";}
+function closeErrorBox() {
+document.getElementById("errorBox").style.display = "none";
+}
